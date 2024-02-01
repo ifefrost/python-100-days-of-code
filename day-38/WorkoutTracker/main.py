@@ -18,11 +18,10 @@ params = {
 
 response = requests.post(url=nutritionix_endpoint, headers=header, json=params)
 workout = response.json()["exercises"][0]
-print(workout)
 
-sheety_post_endpoint = "https://api.sheety.co/c21512e9714ba8e73dd12b458b57354d/workoutTracking/workouts"
-sheety_get_endpoint = "https://api.sheety.co/c21512e9714ba8e73dd12b458b57354d/workoutTracking/workouts"
-
+sheet_header = {
+    "Authorization": SHEET_TOKEN
+}
 
 workout_params = {
     "workout": {
@@ -34,6 +33,6 @@ workout_params = {
     }
 }
 
-response = requests.post(url=sheety_post_endpoint, json=workout_params)
+response = requests.post(url=SHEET_ENDPOINT, headers=sheet_header, json=workout_params)
 print(response.text)
 
